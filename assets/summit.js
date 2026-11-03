@@ -12,7 +12,7 @@ const TALKS = {
   ]
 };
 const PUBLIC_MATERIALS = Object.freeze({"session-01":{"href":"./downloads/session-01-5a29aa7befbe33a6.pdf","filename":"전문세션01_박일웅_국토정보정책과_공간정보 R&D 사업 추진 전략.pdf","size":1415072},"session-03":{"href":"./downloads/session-03-5f87fb1bcbe86c01.pdf","filename":"전문세션03_한근혁_지오스토리_AI Platform.pdf","size":7434743},"session-05":{"href":"./downloads/session-05-70bb10ce231278b1.pptx","filename":"전문세션05_김태훈_261023_Palantir_전쟁공간정보_품질관문추가본.pptx","size":30391249}});
-const PUBLIC_ZIP = Object.freeze({"href":"./downloads/GeoAI_Summit_2026_presentations.zip","filename":"GeoAI_Summit_2026_presentations.zip"});
+const PUBLIC_ZIP = Object.freeze({"href":"./downloads/GeoAI_Summit_2026_presentations.zip?v=819747b1f6c8","filename":"GeoAI_Summit_2026_presentations.zip"});
 const downloadIcon = '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v7.2M4.8 6.6 8 9.8l3.2-3.2M3 12.8h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const pendingIcon = '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="8" r="1.25" fill="currentColor"/><circle cx="8" cy="8" r="1.25" fill="currentColor"/><circle cx="13" cy="8" r="1.25" fill="currentColor"/></svg>';
 function escapeText(value){return String(value).replace(/[&<>"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));}
