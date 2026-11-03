@@ -3,6 +3,7 @@
 .all:focus-visible,.dl:focus-visible,.material-retry:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .material-state{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:8px 2px 0;color:var(--txt);font-size:12px;line-height:1.5;text-align:right}
 .material-state.error{color:#e9b7b7}
+.material-state:not(.error){display:none}
 .material-retry{font:inherit;color:var(--cyan);padding:2px 0;border:0;background:none;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .material-retry[hidden]{display:none}
 @media(prefers-reduced-motion:reduce){.all,.dl,.material-retry{transition:none;scroll-behavior:auto}}
