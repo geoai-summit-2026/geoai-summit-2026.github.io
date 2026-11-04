@@ -11,8 +11,8 @@ const TALKS = {
     {id:'session-05',no:'05',title:'팔란티어, 전쟁에서의 공간정보',speaker:'(재)공간정보품질관리원 김태훈\u00a0실장',time:'17:10–17:30',dur:'20분'}
   ]
 };
-const PUBLIC_MATERIALS = Object.freeze({"keynote-01":{"href":"https://github.com/geoai-summit-2026/geoai-summit-2026.github.io/releases/download/materials-20261104-keynote/_._._.AI.pptx","filename":"기초강연_이경일_솔트룩스_국가안보에서 AI와 공간정보.pptx","size":246235938},"session-01":{"href":"./downloads/session-01-5a29aa7befbe33a6.pdf","filename":"전문세션01_박일웅_국토정보정책과_공간정보 R&D 사업 추진 전략.pdf","size":1415072},"session-03":{"href":"./downloads/session-03-5f87fb1bcbe86c01.pdf","filename":"전문세션03_한근혁_지오스토리_AI Platform.pdf","size":7434743},"session-05":{"href":"./downloads/session-05-70bb10ce231278b1.pptx","filename":"전문세션05_김태훈_261023_Palantir_전쟁공간정보_품질관문추가본.pptx","size":30391249}});
-const PUBLIC_ZIP = Object.freeze({"href":"https://github.com/geoai-summit-2026/geoai-summit-2026.github.io/releases/download/materials-20261104-keynote/GeoAI_Summit_2026_presentations.zip","filename":"GeoAI_Summit_2026_presentations.zip","size":285477944,"sha256":"5a0437e941e62abeebdce5b3d0e4728d06bc2a6d54c45e7baca08916ab8a31f0","storage":"release"});
+const PUBLIC_MATERIALS = Object.freeze({"keynote-01":{"href":"./downloads/keynote-01-3b1f3fa8aa9188a4.pdf","filename":"1_기조강연_이경일_국가안보에서 AI와 공간정보.pdf","size":8443641},"session-01":{"href":"./downloads/session-01-06c1825a093b9179.pdf","filename":"2_전문세션01_박일웅_공간정보 R&D 사업 추진 전략.pdf","size":2326708},"session-02":{"href":"./downloads/session-02-db525d91fbe3727c.pdf","filename":"3_전문세션02_오형직_위성과 국토정보를 연결하는 공간정보 AI.pdf","size":10666829},"session-03":{"href":"./downloads/session-03-830bafeadd341338.pdf","filename":"4_전문세션03_한근혁_국공유지 변화탐지 무단점유 분석 AI 플랫폼.pdf","size":2945567},"session-04":{"href":"./downloads/session-04-f58fe5a228ae400d.pdf","filename":"5_전문세션04_홍순범_AI 변화탐지 기반 무인도서 해양쓰레기 예측 및 관리 체계 구축.pdf","size":6492135},"session-05":{"href":"./downloads/session-05-eae0ad083f282e3a.pdf","filename":"6_전문세션05_김태훈_팔란티어 전쟁에서의 공간정보.pdf","size":14235641}});
+const PUBLIC_ZIP = Object.freeze({"href":"./downloads/GeoAI_Summit_2026_individual-14b6a97e0753e5ce.zip","filename":"\ucd5c\uc2e0_PDF_1104.zip","size":36681738,"sha256":"14b6a97e0753e5cea7e2fd343d3b8619f826f5b41820ff472c58d83b12d129e7","storage":"pages","combined_pdf":{"href":"./downloads/GeoAI_Summit_2026_combined-11df7843e9e47658.pdf","filename":"GeoAISummit2026_\ud589\uc0ac\ud654\uba74_\ubc1c\ud45c\uc790\ub8cc_\ud1b5\ud569\ubcf8.pdf","size":45355071,"sha256":"11df7843e9e47658fce1a732c54af5d7692611d403045b12c2bba57607742b92"}});
 const downloadIcon = '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2.5v7.2M4.8 6.6 8 9.8l3.2-3.2M3 12.8h10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const pendingIcon = '<svg class="ic" viewBox="0 0 16 16" aria-hidden="true"><circle cx="3" cy="8" r="1.25" fill="currentColor"/><circle cx="8" cy="8" r="1.25" fill="currentColor"/><circle cx="13" cy="8" r="1.25" fill="currentColor"/></svg>';
 function escapeText(value){return String(value).replace(/[&<>"]/g,(char)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[char]));}
@@ -46,9 +46,24 @@ function applyStaticMaterials(){
     else{button.removeAttribute('download');}
   }
   const all=document.getElementById('allDown');
-  setButtonState(all,count>0,PUBLIC_ZIP.href,'');
-  if(count>0)all.download=PUBLIC_ZIP.filename;
-  all.setAttribute('aria-label',count>0?'현재 등록된 발표자료 '+count+'개 ZIP 다운로드':'등록된 발표자료 없음');
+  const primary=PUBLIC_ZIP.combined_pdf||PUBLIC_ZIP;
+  setButtonState(all,count>0,primary.href,'');
+  if(count>0)all.download=primary.filename;
+  if(PUBLIC_ZIP.combined_pdf){
+    all.innerHTML=downloadIcon+'<span>통합 PDF 다운로드</span>';
+    all.setAttribute('aria-label',count>0?'발표자료 통합 PDF 다운로드':'등록된 발표자료 없음');
+    const zip=document.createElement('a');
+    zip.id='allZipDown';
+    zip.className='all';
+    zip.setAttribute('style','box-sizing:border-box;display:flex;width:max-content;max-width:100%;margin:10px 0 18px auto;padding:8px 14px;font-size:13px;line-height:1.5;text-align:center;white-space:normal;');
+    setButtonState(zip,count>0,PUBLIC_ZIP.href,'');
+    zip.innerHTML=downloadIcon+'<span>개별 자료 ZIP 다운로드</span>';
+    zip.download=PUBLIC_ZIP.filename;
+    zip.setAttribute('aria-label','발표별 PDF '+count+'개를 포함한 ZIP 다운로드');
+    document.querySelector('.top').insertAdjacentElement('afterend',zip);
+  }else{
+    all.setAttribute('aria-label',count>0?'현재 등록된 발표자료 '+count+'개 ZIP 다운로드':'등록된 발표자료 없음');
+  }
   const status=document.getElementById('material-status');
   status.textContent=count===talks.length?'발표자료 '+count+'/'+talks.length+'개 등록 · 통합 다운로드에 모두 포함':count>0?'현재 등록된 발표자료 '+count+'/'+talks.length+'개만 통합 다운로드에 포함':'발표자료 0/'+talks.length+'개 등록 · 자료를 준비하고 있어요.';
   document.getElementById('material-retry').hidden=true;
